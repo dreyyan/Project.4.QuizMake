@@ -1,5 +1,6 @@
 #include <cctype>
 #include <iostream>
+#include <filesystem>
 #include <fstream>
 #include <map>
 #include <memory>
@@ -11,7 +12,11 @@ public:
     Quiz() {} // Default Constructor
 
     string getSubjectFolderPath(string subjectName) {
-        return "subjects\\" + subjectName + ".txt";
+        return "Subjects\\" + subjectName;
+    }
+
+    string getSubjectFolderPathText(string subjectTopic, string subjectName) {
+        return "Subjects\\" + subjectTopic + "\\" + subjectName + ".txt";
     }
 
     // DISPLAY: MAIN MENU
@@ -70,42 +75,72 @@ public:
 
     // COMMAND: ENTER SUBJECT
     string enterSubject(string mainMenuChoice) { // Enter Subject
-        string subject, subjectRead;
-        for (int i = 4; i < mainMenuChoice.size(); i++) {
-            if (!isalnum(mainMenuChoice[i])) { // If '('
-                subjectRead += mainMenuChoice[i + 1]; // Read A Digit After
-                if (!isalnum(mainMenuChoice[i + 2])) { // If ')' After a Digit
-                } else {
-                    subjectRead += mainMenuChoice[6];
-                }
-                break;
-            }
+        string subjectName;
+
+        size_t startPosition = mainMenuChoice.find('('); // Find Opening Parenthesis
+        if (startPosition == string::npos) { // Check if .find was unsuccessful
+            cerr << "\nERROR | missing_open_parenthesis";
         }
-        return subjectRead;
+
+        size_t endPosition = mainMenuChoice.find(')'); // Find Closing Parenthesis
+        if (endPosition == string::npos) { // Check if .find was unsuccessful
+            cerr << "\nERROR | missing_close_parenthesis";
+        }
+
+        subjectName = mainMenuChoice.substr(startPosition + 1, startPosition - endPosition - 1); // Get Subject Name
+        subjectName.erase(0, subjectName.find_first_not_of(' ')); // Trim Left Whitespaces
+        subjectName.erase(subjectName.find_last_not_of(' ' + 1)); // Trim Right Whitespaces
+
+        if (filesystem::create_directory(getSubjectFolderPath(subjectName))) { // Create Folder in Directory
+            cout << "\n>> folder created: " << subjectName;
+        } else { // Error Handling: Existing Folder
+            cerr << "\nERROR | folder_already_exists";
+        }
+
+        return subjectName;
     }
 
     // COMMAND: ENTER INFORMATION
-    void enterInformation(string mainMenuChoice) { // Enter Quiz Information
+    string enterInformation(string mainMenuChoice) { // Enter Quiz Information
+        string word, definition, subjectName, subjectTopic;
         unsigned int wordCount;
-        string word, definition, subjectName;
-        bool validInformation;
+        size_t counter = 1;
+        bool validInformation, isValidTopic;
 
-        for (int i = 0; i < mainMenuChoice.size(); i++) {
-            if (!isalnum(mainMenuChoice[6])) { // If '('
-                while (isalnum(mainMenuChoice[6 + i]) || isspace(mainMenuChoice[6 + i])) {
-                    subjectName += mainMenuChoice[6 + i]; // Read Subsequent Input
-                }
-            }
+        size_t startPosition = mainMenuChoice.find('('); // Find Opening Parenthesis
+        if (startPosition == string::npos) { // Check if .find was unsuccessful
+            cerr << "\nERROR | missing_open_parenthesis";
         }
 
+        size_t endPosition = mainMenuChoice.find(')'); // Find Closing Parenthesis
+        if (endPosition == string::npos) { // Check if .find was unsuccessful
+            cerr << "\nERROR | missing_close_parenthesis";
+        }
+
+        // Get Subject Name
+        subjectTopic = mainMenuChoice.substr(startPosition + 1, startPosition - endPosition - 1); // Get Subject Name
+        subjectTopic.erase(0, subjectTopic.find_first_not_of(' ')); // Trim Left Whitespaces
+        subjectTopic.erase(subjectTopic.find_last_not_of(' ' + 1)); // Trim Right Whitespaces
+
+        do { // Error Loop
+            isValidTopic = true;
+            cout << "\nEnter Topic: ";
+            getline(cin, subjectName);
+
+            if (subjectName.empty()) {
+                isValidTopic = false;
+                cerr << "\nERROR | invalid_topic";
+            }
+        } while (!isValidTopic);
+
         // Create File Text in Folder
-        ofstream fileWriter(getSubjectFolderPath(subjectName));
+        ofstream fileWriter(getSubjectFolderPathText(subjectTopic, subjectName));
 
             // Input Content to Text File
             if (fileWriter) {
                 cout << "\n>> text file created";
             } else {
-                cerr << "\ncannot_open_file";
+                cerr << "\nERROR | cannot_open_file";
             }
 
         // Display Header
