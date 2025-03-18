@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #3484F0;</string>
+   <string notr="true">background-color: rgb(49, 125, 225);</string>
   </property>
   <widget class="QDialogButtonBox" name="bbox">
    <property name="geometry">

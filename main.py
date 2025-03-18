@@ -1,20 +1,30 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6 import uic
-# Scripts
+# Python files
 import new_quiz, delete_quiz, load_quiz, save_quiz
 import statistics, settings, help, exit_app
 # Remove warnings
 import warnings
+# Shadow
 warnings.simplefilter("ignore", category=DeprecationWarning)
-
+from PyQt6.QtWidgets import QLabel, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QColor
 
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("main.ui", self) # Load the UI file directly
         self.setWindowTitle("QuizMake (v1.0)") # Override window title
-        self.setFixedSize(800, 560) # Override window size
+        self.setFixedSize(800, 520) # Override window size
+
+        # Shadow Effect: l_main_menu
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(8)
+        shadow.setXOffset(3)
+        shadow.setYOffset(3)
+        shadow.setColor(QColor(44, 111, 199, 180)) # Gray shadow with transparency
+        self.l_main_menu.setGraphicsEffect(shadow)
 
         # Connect buttons
         self.b_new_quiz.clicked.connect(lambda: new_quiz.run(self))

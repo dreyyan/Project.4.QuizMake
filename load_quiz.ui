@@ -14,9 +14,113 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #3484F0;</string>
+   <string notr="true">background-color: rgb(39, 101, 181);</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(49, 125, 225);</string>
+   </property>
+   <widget class="QLabel" name="l_title">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>801</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>32</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #F7F7F7;
+background-color: rgb(47, 120, 216);
+font-weight: bold;
+</string>
+    </property>
+    <property name="text">
+     <string>QuizMake</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_load_quiz">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>801</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #F7F7F7;
+background-color: rgb(47, 120, 216);
+font-weight: bold;
+border-radius: 4px;</string>
+    </property>
+    <property name="text">
+     <string>LOAD QUIZ</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_return">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>430</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: #F7F7F7;
+background-color: #3484F0;
+border-radius: 6px;
+font-weight: bold;
+}
+
+QPushButton::hover {
+background-color: rgb(47, 118, 212);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>↵</string>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
