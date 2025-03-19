@@ -11,14 +11,6 @@ class NewQuizWindow(QMainWindow):
         self.setWindowTitle("New Quiz")
         self.setFixedSize(800, 520)
 
-        # Shadow Effect: l_new_quiz
-        shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(8)
-        shadow.setXOffset(3)
-        shadow.setYOffset(3)
-        shadow.setColor(QColor(44, 111, 199, 180)) # Gray shadow with transparency
-        self.l_new_quiz.setGraphicsEffect(shadow)
-
         # Button: Return
         self.b_return.clicked.connect(lambda: self.close())
 
